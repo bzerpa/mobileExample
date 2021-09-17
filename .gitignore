@@ -12,5 +12,4 @@
 src/main/resources/application/.com.altipeak.auth.safeaccess.apk.icloud
 src/main/resources/application/.com.altipeak.auth.safewalkfido.apk.icloud
 src/main/resources/application/.juralogin.apk.icloud
-*.prefs
 chromedriver
