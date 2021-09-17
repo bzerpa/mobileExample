@@ -1,0 +1,270 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>safe</groupId>
+    <artifactId>altipeak</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>altipeak</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+        <repository>
+            <id>springLibRelease</id>
+            <name>Spring Lib Release</name>
+            <url>https://repo.spring.io/libs-release/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.microsoft.appcenter</groupId>
+            <artifactId>appium-test-extension</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tngtech.java</groupId>
+            <artifactId>junit-dataprovider</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>6.1.0</version>
+        </dependency>
+
+        <!-- 	<dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>3.3.0</version>
+            </dependency> -->
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+
+        <!-- <dependency>
+            <groupId>com.github.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency> -->
+
+        <dependency>
+            <groupId>javax.xml.parsers</groupId>
+            <artifactId>jaxp-api</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+        <!-- <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.15.0</version>
+            <scope>test</scope>
+        </dependency> -->
+
+    </dependencies>
+
+
+
+    <profiles>
+        <profile>
+            <id>prepare-for-upload</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+                                <id>copy-dependencies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/upload/dependency-jars/</outputDirectory>
+                                    <useRepositoryLayout>true</useRepositoryLayout>
+                                    <copyPom>true</copyPom>
+                                    <addParentPoms>true</addParentPoms>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <version>2.2</version>
+                        <executions>
+                            <execution>
+                                <id>generate-pom</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>effective-pom</goal>
+                                </goals>
+                                <configuration>
+                                    <output>${project.build.directory}/upload/pom.xml</output>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.1</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.14.1</version>
+                        <configuration>
+
+                            <systemPropertyVariables>
+                                <language>english</language>
+                                <customization>westlab</customization>
+                                <deeplinkRegType>manual</deeplinkRegType>
+                                <buildDirectory>${project.build.directory}</buildDirectory>
+                            </systemPropertyVariables>
+
+                            <includes>
+<!--                                     <include>**/ApplicationPinLoginTest.java</include>
+                                    <include>**/ApplicationTimeoutTest.java</include>
+                                    <include>**/ChangePinTest.java</include>
+                                    <include>**/DeeplinkAuthenticationTest.java</include>
+     
+									<include>**/DeeplinkRegistrationTest.java</include>
+                                    <include>**/LicenseRemovalTest.java</include>
+ -->                                    <include>**/PinCodeTest.java</include>
+<!--                                     <include>**/PushAuthenticationTest.java</include>
+									<include>**/RegisterTest.java</include>
+									<include>**/TokenRefreshTest.java</include>
+                                    <include>**/TotpAuthenticationTest.java</include>
+                                    <include>**/TransactionSignatureTest.java</include>
+ -->                             </includes>
+
+                            <excludes>
+
+                                <!--
+                                		<exclude>**/DeeplinkRegistrationTest.java</exclude>
+                                        <exclude>**/TokenRefreshTest.java</exclude>
+                                        <exclude>**/LicenseRemovalTest.java</exclude>
+                                        <exclude>**/TransactionSignatureTest.java</exclude>
+                                        <exclude>**/PushAuthenticationTest.java</exclude>
+                                        <exclude>**/ChangePinTest.java</exclude>
+                                        <exclude>**/ApplicationPinLoginTest.java</exclude>
+                                        <exclude>**/PinCodeTest.java</exclude>
+
+Test
+                                -->
+                            </excludes>
+
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>copy-testclasses</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>testResources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/upload/test-classes</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>
+                                                ${project.build.testOutputDirectory}
+                                            </directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>
+                                                ${project.build.outputDirectory}
+                                            </directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <!--
+                                       <execution>
+                                        <id>copy-config-files</id>
+                                        <phase>package</phase>
+                                        <goals>
+                                          <goal>testResources</goal>
+                                        </goals>
+                                        <configuration>
+                                          <outputDirectory>${project.build.directory}/upload/test-classes</outputDirectory>
+                                          <resources>
+                                            <resource>
+                                              <directory>src/main/resources/</directory>
+                                              <includes>
+                                                <include>juralogin-config.properties</include>
+                                              </includes>
+                                            </resource>
+                                          </resources>
+                                        </configuration>
+                                      </execution>  -->
+                        </executions>
+                    </plugin>
+
+                    <!--       <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-failsafe-plugin</artifactId>
+                            <version>3.0.0-M4</version>
+                            <executions>
+                              <execution>
+                                <goals>
+                                  <goal>integration-test</goal>
+                                  <goal>verify</goal>
+                                </goals>
+                              </execution>
+                            </executions>
+                          </plugin> -->
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
